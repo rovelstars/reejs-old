@@ -83,13 +83,6 @@ function matchUrl(realUrl) {
   realUrl = realUrl.split("?")[0];
   let foundRoute = routes.find((templateUrl) => {
     let urlRegex = pathToRegexp(templateUrl.url);
-    console.log(
-      templateUrl.url == "/404"
-        ? `No Route found for url ${realUrl}, defaulting to route /404`
-        : `Does Route ${templateUrl.url} match ${realUrl}? ${urlRegex.test(
-            realUrl
-          )}`
-    );
     return urlRegex.test(realUrl);
   });
   return foundRoute;

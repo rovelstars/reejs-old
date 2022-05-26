@@ -34,16 +34,8 @@ router.registerPreloader("/pages/components/Loader.js");
 router.registerPostRender(() => {
   twgen.liveSetup();
 });
-let routes = [
-  { url: "/", jsx: "/pages/index.js" },
-  { url: "/failure", jsx: "/pages/failure.js" },
-  { url: "/management", jsx: "/pages/management.js" },
-  { url: "/test/:id", jsx: "/pages/test.js" },
-  { url: "/crash", jsx: "/pages/hmm.js" },
-  { url: "/coolpage", jsx: "/pages/coolpage.js" },
-  { url: "/404", jsx: "/pages/notfound.js" },
-  { url: "/500", jsx: "/pages/crash.js" },
-];
+let routes = await fetch("/routes.json").then((res) => res.json());
+
 router.registerRoutes(routes);
 
 let shouldSW = localStorage.getItem("shouldSW") || "true";
@@ -51,12 +43,35 @@ let shouldSW = localStorage.getItem("shouldSW") || "true";
 window.ree.enableSW = function () {
   localStorage.setItem("shouldSW", "true");
   shouldSW = "true";
+  console.log("Enabled SW!");
+  setTimeout(() => {
+    //reload the site
+    location.reload();
+  }, 3000);
 };
 
 window.ree.disableSW = function () {
   localStorage.setItem("shouldSW", "false");
   shouldSW = "false";
+  caches
+    .keys()
+    .then((keyList) => Promise.all(keyList.map((key) => caches.delete(key))));
+  console.log("Disabled SW!");
+  setTimeout(() => {
+    //reload the site
+    location.reload();
+  }, 3000);
 };
+
+window.ree.clearCache = async function () {
+  caches.keys().then((keylist) => { Promise.all(keylist.map((key) => caches.delete(key))); });
+  console.log("Cleared Cache!");
+  setTimeout(()=>{
+    location.reload();
+  }, 3000);
+}
+
+window.ree.Reeload
 
 async function initLoad() {
   if (!ReeLoaded) {
@@ -66,34 +81,33 @@ async function initLoad() {
     await import("/twcfg.js");
     document.getElementById("app").innerHTML = "";
     await router.load(location.pathname + location.search);
-    if(shouldSW === "true"){
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then(function (reg) {
-          console.log("Registration successful, scope is:", reg.scope);
-        })
-        .catch(function (error) {
-          console.log("Service worker registration failed, error:", error);
+    if (shouldSW === "true") {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then(function (reg) {
+            console.log("Registration successful, scope is:", reg.scope);
+          })
+          .catch(function (error) {
+            console.log("Service worker registration failed, error:", error);
+          });
+        //wait for service worker to be ready
+        navigator.serviceWorker.ready.then(function (reg) {
+          console.log("I feel like sw is ready!", reg);
+          reg.active.postMessage({ type: "ROUTES_REGISTER", routes });
         });
-      //wait for service worker to be ready
-      navigator.serviceWorker.ready.then(function (reg) {
-        console.log("I feel like sw is ready!", reg);
-        reg.active.postMessage({ type: "ROUTES_REGISTER", routes });
-      });
-      navigator.serviceWorker.addEventListener("message", (e) => {
-        if (e.data.type === "WTFM") {
-          console.log("[WTFM] Routes registered!");
-        }
-        if (e.data.type === "LOAD_ROUTE") {
-          router.load(e.data.url);
-        }
-      });
+        navigator.serviceWorker.addEventListener("message", (e) => {
+          if (e.data.type === "WTFM") {
+            console.log("[WTFM] Routes registered!");
+          }
+          if (e.data.type === "LOAD_ROUTE") {
+            router.load(e.data.url);
+          }
+        });
+      }
+    } else {
+      console.log("Skipped SW installation!");
     }
-  }
-  else {
-    console.log("Skipped SW installation!");
-  }
   }
 }
 

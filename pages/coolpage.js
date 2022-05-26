@@ -1,7 +1,7 @@
 import { render, html, Component } from "/reender.js";
 import { registerPostRender } from "/router.js";
 export default class CoolPage extends Component {
-  render({ props }, { bots = [] }) {
+  render({ props }) {
     return html``;
   }
 }
