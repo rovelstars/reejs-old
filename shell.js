@@ -34,7 +34,7 @@ router.registerPreloader("/pages/components/Loader.js");
 router.registerPostRender(() => {
   twgen.liveSetup();
 });
-let routes = await fetch("/routes.json").then((res) => res.json());
+let routes = await fetch(window.location.host.startsWith("127.0.0.1")?"/routes.json":"https://cdn.jsdelivr.net/gh/rovelstars/reejs/retool/routes.json").then((res) => res.json());
 
 router.registerRoutes(routes);
 
