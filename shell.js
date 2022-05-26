@@ -110,14 +110,4 @@ async function initLoad() {
     }
   }
 }
-
-if (!device.mobile) {
-  window.addEventListener("mousemove", () => {
-    if (!window.didMouseMove) {
-      window.didMouseMove = true;
-      initLoad();
-    }
-  });
-} else {
-  initLoad();
-}
+initLoad();

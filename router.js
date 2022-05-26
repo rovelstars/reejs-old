@@ -117,17 +117,16 @@ export function getUrlData(realUrl) {
   if (!foundRoute) {
     return { query: undefined, param: undefined, url: undefined };
   } else {
-    var search = realUrl.split("?")[1];
+    let search = realUrl.split("?")[1];
     let result;
     if (search) {
-      result = JSON.parse(
-        '{"' +
-          decodeURI(search)
-            .replace(/"/g, '\\"')
-            .replace(/&/g, '","')
-            .replace(/=/g, '":"') +
-          '"}'
-      );
+      result = search
+        .split("&")
+        .map((x) => x.split("="))
+        .reduce((acc, cur) => {
+          acc[cur[0]] = cur[1];
+          return acc;
+        }, {});
     }
     let params = path.match(foundRoute.url, { decode: decodeURIComponent })(
       realUrl

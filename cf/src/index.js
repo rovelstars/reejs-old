@@ -1,5 +1,3 @@
-let routes = await fetch("https://cdn.jsdelivr.net/gh/rovelstars/reejs/retool/routes.json").then(res => res.json());
-
 addEventListener('fetch', function (event) {
   event.respondWith(handleRequest(event.request));
 });
@@ -9,7 +7,7 @@ async function handleRequest(request) {
   if (request.method !== 'GET') return MethodNotAllowed(request);
   let url = request.url.replace("https://ree.rovel.workers.dev", "");
   let extension;
-  let route = matchUrl(url);
+  let route = await matchUrl(url);
   if(url.split("?")[0].endsWith(".js")){
     extension = "text/javascript";
   }
@@ -21,7 +19,7 @@ async function handleRequest(request) {
   }
   else extension = "text/html";
   let response;
-  if(route){
+  if(!route){
    response = await fetch("https://reejs.rovelstars.com"+url);
   }
   else {
@@ -41,8 +39,10 @@ function MethodNotAllowed(request) {
   });
 }
 
-function matchUrl(realUrl) {
+async function matchUrl(realUrl) {
   realUrl = realUrl.split("?")[0];
+  let routes = await fetch("https://cdn.jsdelivr.net/gh/rovelstars/reejs/retool/routes.json");
+  routes = await routes.json();
   let foundRoute = routes.find((templateUrl) => {
     let urlRegex = pathToRegexp(templateUrl.url);
     return urlRegex.test(realUrl);

@@ -68,14 +68,9 @@ self.addEventListener("fetch", (event) => {
 
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "ROUTES_REGISTER") {
-    // do something
-    console.log("Asked to do something, so screaming!");
     event.data.routes.forEach((r) => {
       registerRoute(r);
     });
-  }
-  if (event.data && event.data.type === "EVAL") {
-    eval(event.data.code);
   }
 });
 
