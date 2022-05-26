@@ -165,7 +165,7 @@ export async function load(url = "/", scrolling = true, popped = false, wasInit=
       await ree.routerData.currentPageJsx.gracefulExit();
     } else ree.routerData.currentPageJsx.gracefulExit();
   }
-  if (url !== window.location.pathname && !popped) {
+  if (url !== window.location.pathname && !popped && !wasInit) {
     window.history.pushState({}, "", url);
   }
   let route = matchUrl(url);
