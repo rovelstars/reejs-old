@@ -11,28 +11,24 @@ Currently it showcases:
 - Custom Reender
 - Service Worker that makes it possible for the site to run offline, and also allows directly visiting pages directly from the pages (a static file server would send 404 pages for non-existing pages, so this is a great achievement!)
 - (WIP!) Reebugger (a debugging tool for Reejs)
-- Tooling coming soon! (Will make it easier for reejs based sites to maintain and automatically update!)
+- Tooling (in alpha!)
 
-### Self Hosting:
-
-Install `http-server`
-
-```bash
-npm install -g http-server
-```
+### Trying out with ReeTools:
 
 Follow how to make the site https (If you want to use service worker) [here](https://dev.to/aschmelyun/using-the-magic-of-mkcert-to-enable-valid-https-on-local-dev-sites-3a3c)
 
-Then run `http-server`
+For http site serving:
 
 ```bash
-http-server
+cd retool && node . --serve .. 8080 127.0.0.1 notsecure 0
 ```
 
 (Or) this if you make the site https
 
 ```bash
-http-server -s -C ./127.0.0.1.pem -K ./127.0.0.1-key.pem
+cd retool && node . --serve .. 8080 127.0.0.1 secure ../../127.0.0.1-key.pem ../../127.0.0.1.pem 0
 ```
 
-Then Visit http://127.0.0.1:8080/
+Then Visit http://127.0.0.1:8080/ (or https://127.0.0.1:8080/ if you are using the https mode)
+
+### Documentation Coming Soon!

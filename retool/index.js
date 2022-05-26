@@ -17,11 +17,12 @@ let commandIndex = commands.findIndex(function (element) {
   );
 });
 console.log("command received:", commands[commandIndex][0]);
-console.log("extra args", args);
+
 
 switch (commands[commandIndex][0]) {
   case "serve":
     const module = args[3] == "secure" ? "https" : "http";
+    console.log("Using:", module);
     const dir = args[0];
     let server = require(module);
     let port = args.length > 1 ? args[1] : 8080;
@@ -32,6 +33,11 @@ switch (commands[commandIndex][0]) {
         key: fs.readFileSync(args[4]),
         cert: fs.readFileSync(args[5]),
       };
+    }
+    else{
+        //add empty strings to args at 4 and 5
+        args.splice(4,0,"");
+        args.splice(5,0,"");
     }
     server
       .createServer(opts, function (req, res) {
