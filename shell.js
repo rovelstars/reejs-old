@@ -101,7 +101,7 @@ async function initLoad() {
             console.log("[WTFM] Routes registered!");
           }
           if (e.data.type === "LOAD_ROUTE") {
-            router.load(e.data.url);
+            router.load(e.data.url,undefined,undefined,true);
           }
         });
       }

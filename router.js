@@ -151,7 +151,7 @@ export function matchUrl(realUrl) {
   return foundRoute;
 }
 
-export async function load(url = "/", scrolling = true) {
+export async function load(url = "/", scrolling = true, popped = false, wasInit=false) {
   //run gracefulExit first on the current site
   if (preloader) {
     await renderJsx(preloader, undefined, true);
@@ -165,7 +165,7 @@ export async function load(url = "/", scrolling = true) {
       await ree.routerData.currentPageJsx.gracefulExit();
     } else ree.routerData.currentPageJsx.gracefulExit();
   }
-  if (url) {
+  if (url !== window.location.pathname && !popped) {
     window.history.pushState({}, "", url);
   }
   let route = matchUrl(url);
@@ -220,5 +220,5 @@ export async function load(url = "/", scrolling = true) {
 
 //listen for popevent and load the url
 window.addEventListener("popstate", (e) => {
-  load(e.path[0].location.pathname);
+  load(e.path[0].location.pathname,true,true);
 });
