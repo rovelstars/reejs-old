@@ -21,6 +21,9 @@ export async function renderJsx(url, data = undefined, loader = false) {
   window.ree.routerData.currentPageUrl = url;
   try {
     window.ree.routerData.currentPageJsx = await import(url);
+    if(ree.routerData.currentPageJsx.meta){
+      
+    }
     if (data) {
       render(
         html`<${ree.routerData.currentPageJsx.default} data=${data} />`,

@@ -1,6 +1,19 @@
 import { html, Component } from "/reender.js";
 import Modal from "/pages/components/Modal.js";
 import BotCard from "/pages/components/BotCard.js";
+
+export let meta = {
+  title: "Failure",
+  description: "This is the failure page",
+  og_image: "https://i.imgur.com/qJ5QlQH.png",
+  og_image_width: "1200",
+  og_image_height: "630",
+  og_image_type: "image/png",
+  og_image_alt: "Failure Page",
+  og_type: "website",
+  og_url: "https://ree.rovel.workers.dev/failure",
+}
+
 export default class Failure extends Component {
 
   componentDidMount(){

@@ -32,6 +32,13 @@ export default class Index extends Component {
         Featuring no build step and can be ran as serverless or static site server!
         Batteree Powereed Framework that includes everything that you would expect!
         You will soon be able to use in your websites!</p>
+      <p className="mx-8 dark:text-white text-2xl mb-2">Helpful tips: (Run this in devtools or via address bar)</p>
+      <p className="mx-8 dark:text-white text-2xl mb-2">Clear Cache: <code className="bg-gray-900 rounded-md p-2">ree.clearCache()</code></p>
+      <p className="mx-8 dark:text-white text-2xl mb-2">Disable Service Worker: <code className="bg-gray-900 rounded-md p-2">ree.disableSW()</code></p>
+      <p className="mx-8 dark:text-white text-2xl mb-2">Enable Service Worker: <code className="bg-gray-900 rounded-md p-2">ree.enableSW()</code></p>
+      <p className="mx-8 dark:text-white text-2xl mb-2">Load a custom URL: <code className="bg-gray-900 rounded-md p-2">ree.router.load(url)</code></p>
+      <p className="mx-8 dark:text-white text-2xl mb-2">Load ReeBugger (alpha testing): <code className="bg-gray-900 rounded-md p-2">ree.debug()</code></p>
+      <p className="mx-8 dark:text-white text-2xl mb-4">Below are some examples of links and button working as links, and a per-page storage example that can be persisted!</p>
       <div
         className="mx-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:mx-56 gap-4"
       >
