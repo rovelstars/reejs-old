@@ -34,6 +34,5 @@
           height: window.innerHeight,
           width: window.innerWidth
         };
-        console.log("Window was resized!");
     });
 })(window, document);

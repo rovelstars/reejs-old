@@ -28,8 +28,12 @@ export default class Index extends Component {
       <h1 className="mx-4 dark:text-white text-7xl">
         Welcome To Ree.js
       </h1>
+      <p className="mx-8 dark:text-white text-2xl mb-4">
+        Featuring no build step and can be ran as serverless or static site server!
+        Batteree Powereed Framework that includes everything that you would expect!
+        You will soon be able to use in your websites!</p>
       <div
-        className="mx-4 grid sm:grid-cols-1 md:grid-cols-2 md:mx-56 gap-4"
+        className="mx-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:mx-56 gap-4"
       >
         <button
           className="btn-blurple"
