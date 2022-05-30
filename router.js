@@ -223,5 +223,5 @@ export async function load(url = "/", scrolling = true, popped = false, wasInit=
 
 //listen for popevent and load the url
 window.addEventListener("popstate", (e) => {
-  load(e.path[0].location.pathname,true,true);
+  load(window.location.pathname,true,true);
 });

@@ -1,0 +1,37 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Svelte</title>
+    </head>
+<body>
+    <div id="svelte-code" style="display: hidden;">
+    <script>
+     let name = 'Sten Hougaard';
+     let time = new Date();
+     setInterval(() => time = new Date(), 1000);
+    
+    </script>
+    <input type="text" bind:value={name} />
+    <h1>Hello {@html name.split('')}</h1>
+    <div>
+    {#each name.split('') as char, i}
+    
+    <span style="padding: 5px; background: rgb({i*20 % 255},{i*20 % 255},{i*20 % 255}); color: rgb({255-i*20 % 255},{255-i*20 % 255},{255-i*20 % 255})">{char}</span>
+    {/each}
+    </div>
+    
+    <div style="margin-top: 20px;">{time.toLocaleTimeString()}</div>
+    
+    
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500');
+      h1 {
+        font-weight: 500;
+        color: red;
+      }
+    </style>
+    
+    </>
+    </body>
+</html>

@@ -1,0 +1,3 @@
+url:https://unpkg.com/path-to-regexp@{{ver}}/dist.es2015/index.js
+ver:6.2.1
+delmap://# sourceMappingURL=index.js.map

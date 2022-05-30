@@ -5,7 +5,8 @@ addEventListener('fetch', function (event) {
 async function handleRequest(request) {
   // Only GET requests work with this proxy.
   if (request.method !== 'GET') return MethodNotAllowed(request);
-  let url = request.url.replace("https://ree.rovel.workers.dev", "");
+  let url = request.url.replace("https://reejs.rovelstars.com", "");
+  url = url.replace("https://ree.rovel.workers.dev","");
   let extension;
   let route = await matchUrl(url);
   if(url.split("?")[0].endsWith(".js")){
@@ -20,10 +21,10 @@ async function handleRequest(request) {
   else extension = "text/html";
   let response;
   if(!route){
-   response = await fetch("https://reejs.rovelstars.com"+url);
+   response = await fetch("https://ree.js.org"+url);
   }
   else {
-    response = await fetch("https://reejs.rovelstars.com");
+    response = await fetch("https://ree.js.org");
   }
   return new Response(response.body, {
     headers: {
