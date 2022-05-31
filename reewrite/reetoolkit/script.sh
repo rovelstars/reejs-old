@@ -21,4 +21,6 @@ fi
 echo "[INSTALL] Successfully added alias to your available shell configuration files. If you don't use bash or zsh, you can add the below line manually to your shell configuration file:"
 echo "\\nalias reejs='node ~/.reejs/toolkit/index.js'\\n"
 
+alias reejs='node ~/.reejs/toolkit/index.js'
+
 echo "[INSTALL] Reetoolkit installed! Run 'reejs init reejs-app' to start using it!\nLearn more about it here: <link coming soon!>"
