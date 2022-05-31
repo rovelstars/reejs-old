@@ -12,17 +12,17 @@ curl -s https://raw.githubusercontent.com/rovelstars/reejs/master/reewrite/reeto
 echo "[INSTALL] Installing reetoolkit"
 echo "[INSTALL] Adding alias to your shell configuration file and also the current shell"
 
-# add alias to .bashrc and .zshrc if exists
+# add alias to .bashrc and .zshrc if exists and not already added
 if [ -f ~/.bashrc ]; then
-  if [! grep -q "alias reejs='~/.reejs/toolkit/index.js'" ~/.bashrc]; then
+  if ! grep -q "reejs" ~/.bashrc; then
     echo "alias reejs='node ~/.reejs/toolkit/index.js'" >> ~/.bashrc
-    fi
+  fi
 fi
 
 if [ -f ~/.zshrc ]; then
-  if [! grep -q "alias reejs='~/.reejs/toolkit/index.js'" ~/.zshrc]; then
+  if ! grep -q "reejs" ~/.zshrc; then
     echo "alias reejs='node ~/.reejs/toolkit/index.js'" >> ~/.zshrc
-    fi
+  fi
 fi
 
 echo "[INSTALL] Successfully added alias to your available shell configuration files. If you don't use bash or zsh, you can add the below line manually to your shell configuration file:"
