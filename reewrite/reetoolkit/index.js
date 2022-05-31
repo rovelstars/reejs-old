@@ -6,7 +6,6 @@ let args = process.argv.slice(2);
 let cmd = args[0];
 import fs from "node:fs";
 import {spawn} from "node:child_process";
-let libsrcs = fs.readdirSync("./libs").filter((f) => f.endsWith(".src"));
 
 function findLine(arr, word) {
   let e = arr.filter((l) => {
@@ -64,6 +63,7 @@ if(cmd=="init"){
   }
 }
 else if(cmd=="get"){
+  let libsrcs = fs.readdirSync("./libs").filter((f) => f.endsWith(".src"));
 libsrcs.forEach(async (lib) => {
   let data = fs.readFileSync(`./libs/${lib}`, "utf-8");
   lib = lib.replace(".src", ".js");
