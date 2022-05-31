@@ -7,6 +7,8 @@ echo "[INSTALL] Initializing reetoolkit on $HOME"
 mkdir -p ~/.reejs/toolkit
 echo "[INSTALL] Downloading reetoolkit"
 curl -s https://raw.githubusercontent.com/rovelstars/reejs/master/reewrite/reetoolkit/index.js > ~/.reejs/toolkit/index.js
+curl -s https://raw.githubusercontent.com/rovelstars/reejs/master/reewrite/reetoolkit/package.json > ~/.reejs/toolkit/package.json
+
 echo "[INSTALL] Installing reetoolkit"
 echo "[INSTALL] Adding alias to your shell configuration file and also the current shell"
 
