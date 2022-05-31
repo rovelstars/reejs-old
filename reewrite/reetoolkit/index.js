@@ -2,10 +2,10 @@ function logger(msg, lvl = "DEBUG") {
   lvl = lvl.toUpperCase();
   console.log(`[${lvl}] ${msg}`);
 };
-
 let args = process.argv.slice(2);
 let cmd = args[0];
 import fs from "node:fs";
+import {spawn} from "node:child_process";
 let libsrcs = fs.readdirSync("./libs").filter((f) => f.endsWith(".src"));
 
 function findLine(arr, word) {
@@ -16,6 +16,30 @@ function findLine(arr, word) {
   else return undefined;
 }
 
+if(cmd=="reinstall"){
+  logger("[1/3] Removing ReeToolkit, Do NOT exit or else you need to install toolkit yourself!","INFO");
+  //delete the folder .reejs located at $HOME
+  fs.rmdirSync(`${process.env.HOME}/.reejs`);
+  logger("[2/3] Installing ReeToolkit","INFO");
+  //check if the os is windows
+  if(process.platform=="win32"){
+    //if so, then we need to install the windows version
+    logger("[3/3] Installing Windows version","INFO");
+    //exec shell command to install the windows version, log the output
+    //let output = spawn("curl",["-s","-L","https://ree.js.org/download/toolkit/.ps1",""]);
+  }
+  //check if the os is linux
+  else if(process.platform=="linux"){
+    logger("[3/3] Installing Linux version","INFO");
+    let output = spawn("curl",["-s","-L","https://ree.js.org/download/toolkit.sh","|","bash"]);
+    output.stdout.on('data',data=>{
+      logger(data,"INSTALL");
+    })
+  }
+  //check if the os is mac
+  else if(process.platform=="darwin"){
+  }
+}
 if(cmd=="init"){
   if(!args[1]){
     logger("No library name specified", "error");
@@ -39,7 +63,6 @@ if(cmd=="init"){
   logger(`Project ${project} created!\nEdit ".reecfg" file and run "reejs install"`, "info");
   }
 }
-
 else if(cmd=="get"){
 libsrcs.forEach(async (lib) => {
   let data = fs.readFileSync(`./libs/${lib}`, "utf-8");

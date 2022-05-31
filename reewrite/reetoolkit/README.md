@@ -15,7 +15,7 @@ curl -s -L https://ree.js.org/download/reetoolkit | bash
 ```sh
 ./reejs install
 ```
-^ Installs reejs to the current folder
+^ Installs required files for reejs to the current folder
 
 ```sh
 ./reejs get
