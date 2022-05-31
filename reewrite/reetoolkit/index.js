@@ -18,16 +18,14 @@ function findLine(arr, word) {
 if(cmd=="reinstall"){
   logger("[1/3] Removing ReeToolkit, Do NOT exit or else you need to install toolkit yourself!","INFO");
   //delete the folder .reejs located at $HOME
-  spawn("rm",["-rf ~/.reejs"]);
+  spawn("rm", ["-rf ~/.reejs"]);
   logger("[2/3] Installing ReeToolkit","INFO");
 
     logger("[3/3] Installing Linux version","INFO");
     let output = spawn("curl",["-s","-L","https://ree.js.org/download/toolkit.sh","|","bash"]);
-    output.stdout.on('data',data=>{
-      logger(data,"INSTALL");
-    });
+    logger("Done","INFO");
 }
-if(cmd=="init"){
+else if(cmd=="init"){
   if(!args[1]){
     logger("No library name specified", "error");
     process.exit(1);
