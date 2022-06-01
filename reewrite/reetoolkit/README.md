@@ -26,3 +26,36 @@ curl -s -L https://ree.js.org/download/reetoolkit | bash
 ./reejs init
 ```
 ^ Generates project structure for reejs
+
+
+## Usage (For illustration purposes:)
+
+index.js
+
+```js
+import ree from 'reejs';
+import react from "reender/react"; //vue, svelte available soon too!
+import pages from 'reejs/pages';
+import tw from 'libs/tw';
+
+//allows you to link reejs to call globally
+ree.applyToGlobal(window);
+
+//link react to reejs
+ree.initRender(react);
+
+//now you can start customizing reejs on your website!
+ree.registerPages(pages);
+ree.cssProvider(tw); //or twind
+```
+
+## Example of using genScripts (for illustration purposes:)
+
+```js
+genScripts({
+  "reejs": "https://ree.js.org/download/reetoolkit",
+  "react": "https://unpkg.com/reender/react",
+  "tw": "https://unpkg.com/twind",
+  "pages": "https://unpkg.com/reejs/pages"
+});
+```

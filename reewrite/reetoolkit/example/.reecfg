@@ -1,0 +1,8 @@
+system:react
+# Can be react / vue.
+server:less
+# Can be less / static.
+css:tw
+# Can be tw / twind.
+version:0.0.1
+# major.minor.patch
