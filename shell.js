@@ -34,7 +34,7 @@ router.registerPreloader("/pages/components/Loader.js");
 router.registerPostRender(() => {
   twgen.liveSetup();
 });
-let routes = await fetch(window.location.host.startsWith("127.0.0.1")?"/routes.json":"https://cdn.jsdelivr.net/gh/rovelstars/reejs/retool/routes.json").then((res) => res.json());
+let routes = await fetch(window.location.host.startsWith("127.0.0.1")?"/retool/routes.json":"https://cdn.jsdelivr.net/gh/rovelstars/reejs/retool/routes.json").then((res) => res.json());
 
 router.registerRoutes(routes);
 
@@ -77,8 +77,8 @@ async function initLoad() {
   if (!ReeLoaded) {
     ReeLoaded = true;
     document.getElementById("app-not-loaded-msg").innerText = "Starting App!";
-    await import("/tw.js?plugins=forms,typography,aspect-ratio,line-clamp");
-    await import("/twcfg.js");
+    //await import("/tw.js?plugins=forms,typography,aspect-ratio,line-clamp");
+    //await import("/twcfg.js");
     document.getElementById("app").innerHTML = "";
     await router.load(location.pathname + location.search);
     if (shouldSW === "true") {

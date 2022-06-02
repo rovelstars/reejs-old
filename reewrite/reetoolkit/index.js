@@ -52,6 +52,7 @@ if (cmd == "reinstall") {
     fs.mkdirSync(project);
     fs.mkdirSync(`${project}/libs`);
     fs.mkdirSync(`${project}/src`);
+    fs.mkdirSync(`${project}/src/pages`);
     fs.mkdirSync(`${project}/dist`);
     fs.mkdirSync(`${project}/dist/assets`);
     fs.writeFileSync(
@@ -60,6 +61,9 @@ if (cmd == "reinstall") {
       "utf8"
     );
     fs.writeFileSync(`${project}/src/index.js`, `// Start here!`, "utf8");
+    let code = await fetch("https://raw.githubusercontent.com/rovelstars/reejs/master/pages/coolpage.js");
+    fs.writeFileSync(`${project}/src/pages/index.js`, code,"utf-8");
+    fs.writeFileSync(`${project}/src/routes.json`,`[{"url":"/", "jsx":"src/pages/index.js"}]`, "utf8");
     fs.writeFileSync(
       `${project}/libs/dragabilly.js.src`,
       `url:https://unpkg.com/draggabilly@{{ver}}/dist/draggabilly.pkgd.min.js\nver:latest`,
@@ -93,14 +97,13 @@ if (cmd == "reinstall") {
   let system = findLine(cfg, "system");
   if(system == "react"){
     fs.unlinkSync("./libs/ree.vue.js.src");
-    fs.unlinkSync("./libs/ree.svelte.js.src");
     if(fs.existsSync("./libs/ree.react.js.src")){
       logger(`${system} is already installed!`, "warn");
     }
     else{
       fs.writeFileSync(
         "./libs/ree.react.js.src",
-        `url:https://unpkg.com/ree@{{ver}}/dist/ree.react.js\nver:latest`,
+        `url:https://unpkg.com/htm@{{ver}}/preact/standalone.module.js\nver:3.1.1`,
         "utf8"
       );
       logger(`${system} is now installed!`, "info");
@@ -108,29 +111,13 @@ if (cmd == "reinstall") {
   }
   else if(system=="vue"){
     fs.unlinkSync("./libs/ree.react.js.src");
-    fs.unlinkSync("./libs/ree.svelte.js.src");
     if(fs.existsSync("./libs/ree.vue.js.src")){
       logger(`${system} is already installed!`, "warn");
     }
     else{
       fs.writeFileSync(
         "./libs/ree.vue.js.src",
-        `url:https://unpkg.com/ree@{{ver}}/dist/ree.vue.js\nver:latest`,
-        "utf8"
-      );
-      logger(`${system} is now installed!`, "info");
-    }
-  }
-  else if(system=="svelte"){
-    fs.unlinkSync("./libs/ree.react.js.src");
-    fs.unlinkSync("./libs/ree.vue.js.src");
-    if(fs.existsSync("./libs/ree.svelte.js.src")){
-      logger(`${system} is already installed!`, "warn");
-    }
-    else{
-      fs.writeFileSync(
-        "./libs/ree.svelte.js.src",
-        `url:https://unpkg.com/ree@{{ver}}/dist/ree.svelte.js\nver:latest`,
+        `url:https://unpkg.com/vue@{{ver}}/dist/vue.esm-browser.prod.js\nver:3.2.36`,
         "utf8"
       );
       logger(`${system} is now installed!`, "info");
