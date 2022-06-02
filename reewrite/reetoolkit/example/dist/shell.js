@@ -1,7 +1,7 @@
 window.ree = {};
-import twgen from "/twgen.js";
-let router = await import("/router.js");
-import "/device.js";
+import twgen from "https://ree.js.org/twgen.js";
+let router = await import("https://ree.js.org/router.js");
+//import "/device.js";
 
 let ReeLoaded = false;
 window.ree.router = router;
@@ -30,11 +30,11 @@ twgen.addClasses([
   { className: "btn-red", value: "rounded-md bg-red-500 text-white p-2" },
 ]);
 
-router.registerPreloader("/pages/components/Loader.js");
+//router.registerPreloader("/src/pages/components/Loader.js");
 router.registerPostRender(() => {
   twgen.liveSetup();
 });
-let routes = await fetch(window.location.host.startsWith("127.0.0.1")?"/retool/routes.json":"https://cdn.jsdelivr.net/gh/rovelstars/reejs/retool/routes.json").then((res) => res.json());
+let routes = await fetch(window.location.host.startsWith("127.0.0.1")?"/src/routes.json":"https://cdn.jsdelivr.net/gh/rovelstars/reejs/retool/routes.json").then((res) => res.json());
 
 router.registerRoutes(routes);
 
@@ -77,14 +77,14 @@ async function initLoad() {
   if (!ReeLoaded) {
     ReeLoaded = true;
     document.getElementById("app-not-loaded-msg").innerText = "Starting App!";
-    await import("/tw.js?plugins=forms,typography,aspect-ratio,line-clamp");
-    await import("/twcfg.js");
+    await import("/dist/libs/tw.js?plugins=forms,typography,aspect-ratio,line-clamp");
+    await import("/dist/libs/twcfg.js");
     document.getElementById("app").innerHTML = "";
     await router.load(location.pathname + location.search);
     if (shouldSW === "true") {
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-          .register("/sw.js")
+          .register("/dist/sw.js")
           .then(function (reg) {
             console.log("Registration successful, scope is:", reg.scope);
           })
