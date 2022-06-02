@@ -6,7 +6,7 @@ let args = process.argv.slice(2);
 let cmd = args[0];
 import fs from "node:fs";
 import { spawn } from "node:child_process";
-let metadata = JSON.parse(fs.readFileSync("~/.reejs/package.json", "utf8"));
+let metadata = JSON.parse(fs.readFileSync("~/.reejs/toolkit/package.json", "utf8"));
 
 function findLine(arr, word) {
   let e = arr.filter((l) => {
