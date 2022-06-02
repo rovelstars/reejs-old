@@ -1,6 +1,6 @@
 window.ree = {};
 import twgen from "https://ree.js.org/twgen.js";
-let router = await import("https://ree.js.org/router.js");
+let router = await import("/dist/libs/router.js");
 //import "/device.js";
 
 let ReeLoaded = false;

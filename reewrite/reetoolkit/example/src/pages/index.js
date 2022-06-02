@@ -1,187 +1,75 @@
-import { render, html, Component } from "/reender.js";
+import { render, html, Component } from "/dist/libs/ree.react.js";
 export default class CoolPage extends Component {
   render() {
-    return html`<div className="container">
-    <Head>
-      <title>Create Ree.js App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-
-    <main>
-      <h1 className="title">
-        Welcome to <a href="https://ree.js.org">Ree.js!</a>
+    return html`<div className="flex min-h-screen flex-col items-center justify-center py-2 dark:text-white">
+    <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+      <h1 className="text-6xl font-bold">
+        Welcome to${' '}
+        <a className="text-blue-600" href="/">
+          Ree.js!
+        </a>
       </h1>
 
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
+      <p className="mt-3 text-2xl">
+        Get started by editing${' '}
+        <code className="rounded-md bg-gray-100 dark:bg-gray-700 p-3 font-mono text-lg dark:text-white">
+          pages/index.tsx
+        </code>
       </p>
 
-      <div className="grid">
-        <a href="https://ree.js.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a href="https://ree.js.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
+      <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
+        <a
+          href="/docs"
+          className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
+        >
+          <h3 className="text-2xl font-bold">Documentation →</h3>
+          <p className="mt-4 text-xl">
+            Find in-depth information about Ree.js features and its API.
+          </p>
         </a>
 
         <a
-          href="https://github.com/vercel/next.js/tree/master/examples"
-          className="card"
+          href="/learn"
+          className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
         >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
+          <h3 className="text-2xl font-bold">Learn →</h3>
+          <p className="mt-4 text-xl">
+            Learn about Ree.js in an interactive course with quizzes!
+          </p>
         </a>
 
         <a
-          href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
+          href="/"
+          className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
         >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with Vercel.
+          <h3 className="text-2xl font-bold">Examples →</h3>
+          <p className="mt-4 text-xl">
+            Discover and deploy boilerplate example Ree.js projects.
+          </p>
+        </a>
+
+        <a
+          href="/"
+          className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
+        >
+          <h3 className="text-2xl font-bold">Deploy →</h3>
+          <p className="mt-4 text-xl">
+            Instantly deploy your Ree.js site to a public URL with Vercel.
           </p>
         </a>
       </div>
     </main>
 
-    <footer>
+    <footer className="flex h-24 w-full items-center justify-center mt-6 border-t">
       <a
-        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+        className="flex items-center justify-center gap-2"
+        href="/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Powered by{' '}
-        <img src="/vercel.svg" alt="Vercel" className="logo" />
+        Powered by${' '}Ree.js
       </a>
     </footer>
-
-    <style >
-      .container {
-        min-height: 100vh;
-        padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      main {
-        padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-      footer {
-        width: 100%;
-        height: 100px;
-        border-top: 1px solid #eaeaea;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      footer img {
-        margin-left: 0.5rem;
-      }
-      footer a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .title a {
-        color: #0070f3;
-        text-decoration: none;
-      }
-      .title a:hover,
-      .title a:focus,
-      .title a:active {
-        text-decoration: underline;
-      }
-      .title {
-        margin: 0;
-        line-height: 1.15;
-        font-size: 4rem;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .description {
-        line-height: 1.5;
-        font-size: 1.5rem;
-      }
-      code {
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-      }
-      .grid {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        max-width: 800px;
-        margin-top: 3rem;
-      }
-      .card {
-        margin: 1rem;
-        flex-basis: 45%;
-        padding: 1.5rem;
-        text-align: left;
-        color: inherit;
-        text-decoration: none;
-        border: 1px solid #eaeaea;
-        border-radius: 10px;
-        transition: color 0.15s ease, border-color 0.15s ease;
-      }
-      .card:hover,
-      .card:focus,
-      .card:active {
-        color: #0070f3;
-        border-color: #0070f3;
-      }
-      .card h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-      }
-      .card p {
-        margin: 0;
-        font-size: 1.25rem;
-        line-height: 1.5;
-      }
-      .logo {
-        height: 1em;
-      }
-      @media (max-width: 600px) {
-        .grid {
-          width: 100%;
-          flex-direction: column;
-        }
-      }
-    </style>
-
-    <style>
-    html,body {
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-          Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-          sans-serif;
-      }
-      * {
-        box-sizing: border-box;
-      }
-    </style>
-  </div>`;
+  </div>`
   }
 }

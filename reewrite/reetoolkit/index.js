@@ -132,10 +132,10 @@ if (cmd == "reinstall") {
     let code = await fetch(
       "https://raw.githubusercontent.com/rovelstars/reejs/master/pages/coolpage.js"
     ).then((res) => res.text());
-    fs.writeFileSync(`${project}/src/pages/index.js`, code, "utf-8");
+    fs.writeFileSync(`${project}/src/pages/index.js`, code.replace("reender","dist/libs/ree.react"), "utf-8");
     fs.writeFileSync(
       `${project}/src/routes.json`,
-      `[{"url":"/", "jsx":"src/pages/index.js"}]`,
+      `[{"url":"/", "jsx":"/src/pages/index.js"}]`,
       "utf8"
     );
     fs.writeFileSync(
@@ -149,9 +149,8 @@ if (cmd == "reinstall") {
       "utf-8"
     );
     fs.writeFileSync(`${project}/libs/router.js.src`,
-    `url:https://ree.js.org/router.js\nversion:0.0.1`,
+    `url:https://ree.js.org/download/router.js\nversion:0.0.1`,
     "utf-8");
-
     let shell = await fetch("https://ree.js.org/download/shell.js").then((res) =>
       res.text()
     );
