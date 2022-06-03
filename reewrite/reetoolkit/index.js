@@ -45,6 +45,7 @@ if (cmd == "reinstall") {
   ]);
   logger("Done", "INFO");
 } else if (cmd == "serve") {
+  logger(`listening on port ${args[0] || 8080}`, "INFO");
   server
     .createServer({}, function (req, res) {
       if (req.url == "/") req.url = "/dist/index.html";

@@ -13,7 +13,7 @@ export default class CoolPage extends Component {
       <p className="mt-3 text-2xl">
         Get started by editing${' '}
         <code className="rounded-md bg-gray-100 dark:bg-gray-700 p-3 font-mono text-lg dark:text-white">
-          pages/index.tsx
+          src/pages/index.js
         </code>
       </p>
 
