@@ -1,5 +1,5 @@
 <div align='center'>
-  <img src="https://cdn.discordapp.com/attachments/980676215532830770/991966806736642088/Ree.js_Logo.png" style='max-width: 100%;height: 500px;' />
+  <img src="https://cdn.discordapp.com/attachments/991971417673445376/991971840803217439/Ree.js_Logo_1.png" style='max-width: 100%;height: 500px;' />
   <h1>Ree.js</h1>
   <h3>Make Sites Faster, without the need of building anything!</h3>
 </div>
