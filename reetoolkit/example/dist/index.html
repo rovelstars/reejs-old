@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title property="title">Ree.js - A Reeact.js Framework</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body
+    data-theme="default"
+  >
+    <div id="ree-debugger-shell" class="fixed"></div>
+    <div id="loader"></div>
+    <div id="app" class="min-h-screen">
+      <div
+        style="
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          height: 200px;
+          width: 200px;
+          margin-top: -100px;
+          margin-left: -100px;
+        "
+      >
+        <p style="text-align: center; margin-top: 50%" id="app-not-loaded-msg">
+          Loading...
+        </p>
+        <noscript>
+          <p
+            style="text-align: center; margin-top: 50%"
+            id="app-not-loaded-msg"
+          >
+            Welcome To Failure Management! You Disabled Javascript. What in the
+            world made you think Reejs could run without it?
+          </p>
+        </noscript>
+      </div>
+    </div>
+    <script src="/dist/shell.js" type="module" defer></script>
+  </body>
+</html>
