@@ -149,7 +149,7 @@ export default class CoolPage extends Component {
     </Head>
     <main>
       <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Ree.js!</a>
+        Welcome to <a href="https://discord.gg/eWbt297SkU">Ree.js!</a>
       </h1>
 
       <p className="description">

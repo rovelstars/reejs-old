@@ -1,3 +1,4 @@
+//import { tw } from 'https://cdn.skypack.dev/twind'
 let path = await import("/pathToRegexp.js");
 import { render } from "/reender.js";
 let data;
@@ -23,6 +24,8 @@ export async function load(url = "/", config = {
   }
   if(ree.cfg("render")=="csr"){
   await render(url);
+  //get every element from dom which has any class
+  let elements = document.querySelectorAll("[class]");
   }
   if(!$(`#${ree.opts.app} .head`)) config.updateHead = false; // if head is not found, don't update it
   if (config.updateHead && config.init && !initHead) {
