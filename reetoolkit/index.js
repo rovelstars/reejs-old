@@ -79,7 +79,7 @@ if (cmd == "reinstall") {
               });
               res.end(JSON.stringify(routes));
             } else if (matchUrl(req.url.replace("index.html", ""))) {
-              let data = fs.readFileSync("./dist/index.html", "utf8");
+              let data = fs.readFileSync("./index.html", "utf8");
               res.writeHead(200, {
                 "Content-Type": "text/html",
               });
@@ -122,7 +122,6 @@ if (cmd == "reinstall") {
               // Should be rendered as SSR
               //get the page regarding the url
               let cachedPage = matchCache(req.url,Cache);
-              
               let page = matchUrl(req.url.replace("index.html", ""));
               if (page) {
                 if(!cachedPage){
@@ -138,21 +137,29 @@ if (cmd == "reinstall") {
                   .replaceAll("<Head>", "<head>")
                   .replaceAll("</Head>", "</head>")
                   .replaceAll("className=", "class=")
-                  .replace("`\n  }\n}", "");
-                //split head from data
-                let head = data.split("<head>")[1];
-                head = head.split("</head>")[0];
-                //eval the head
-                head = eval(`\`${head}\``);
-                let body = data.replace(`<head>${head}</head>`, "");
-                //eval the body
-                body = eval(`\`${body}\``);
-                let resp = `<!DOCTYPE html><head>${head}<script src="./shell.js"></script></head><body><div id="app">${body}</div><script type="module">ree.init({app:"app",env:"dev",render:"react"});</script></body></html>`;
+                  .replace("`;\n  }\n}", "");
+                
+                //let body = eval(`\`${data}\``);
+                let resp = `<!DOCTYPE html><html hidden><head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                </head>
+                <body class="min-h-screen bg-purple-800">
+                <div id="app">${data}</div>
+                <script src="https://cdn.skypack.dev/-/twind@v0.16.17-je93RqjPGfVdZEy8P06H/dist=es2019,mode=imports/optimized/twind/shim.js" type="module">
+                </script>
+                <script src="/shell.js"></script>
+                <script>
+                  ree.init({ app: "app", env: "dev", render: "react" });
+                </script>
+                </body>
+                </html>`;
                 res.end(resp);
                 if(shouldCache){
                 Cache.push({url:req.url.split("?")[0],html:resp});
                 }
               }
+              
               else{
                 console.log("[CACHE]","FOUND",req.url);
                 res.writeHead(200, {
