@@ -21,3 +21,15 @@ reejs serve
 ```
 
 Should Serve Client Side App, perfect for Serverless environments. Edit `.reecfg` file to suit your needs!
+
+> Future Installation soon!
+Windows 10/11:
+```pwsh
+Invoke-RestMethod https://ree.js.org/download | node
+```
+
+Linux/Mac:
+```bash
+curl -s https://ree.js.org/download | bash
+```
+Isn't this awesome? Its definitely better than npm install!
