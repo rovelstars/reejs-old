@@ -46,6 +46,10 @@ if (!fs.existsSync(dir)) {
                 process.exit(1);
             }
             console.log("[INFO] Git clone successful. Installing libraries...");
+            if(os!="win32"){
+                console.log("[INFO] Unix system detected. Making file executable.");
+                exec("chmod a+x ./index.js",{cwd: dir+"/toolkit/"});
+            }
             exec("npm link .", { cwd: dir + "/toolkit/" }, (err, stdout, stderr) => {
                 if (err) {
                     console.log("[ERROR] Installing libraries failed. Please try again");
