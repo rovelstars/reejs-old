@@ -1,73 +1,49 @@
 #!/usr/bin/env node
+import path from 'path';
+import { fileURLToPath } from 'url';
+import sade from "./libs/sade/index.js";
+import color from "./libs/@reejs/colors/index.js";
+import { exec } from "child_process";
+import { createServer, get } from 'http'
+import { createApp } from './libs/h3/index.js'
+import fs from "fs";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const pkg = JSON.parse(fs.readFileSync(`${__dirname}/package.json`, "utf8"));
 
-//This installs reejs toolkit to the home directory
-
-let path = require("path");
-let fs = require("fs");
-let { homedir, platform } = require("os");
-let { exec } = require("child_process");
-
-let home = homedir();
-let os = platform();
-
-let homewin;
-if (os == "win32") {
-    homewin = home;
-    home = home.replace(/\\/g, "/");
+function logger(msg, lvl = "DEBUG") {
+    lvl = lvl.toUpperCase();
+    console.log(`[${lvl}] ${msg}`);
 }
-
-//make a folder in the home directory
-let dir = `${home}/.reejs`;
-if (!fs.existsSync(dir)) {
-    console.log("[INFO] Checking for git...");
-    exec("git --version", (err, stdout, stderr) => {
-        if (err) {
-            if (os == "win32") {
-                console.log("[ERROR] Git not found. Please install git from https://git-scm.com/downloads");
-            }
-            else if (os == "linux") {
-                console.log("[ERROR] Git not found. Please install git with `sudo apt-get install git`");
-            }
-            else if (os == "darwin") {
-                console.log("[ERROR] Git not found. Please install git with `brew install git`");
-            }
-            else {
-                console.log("[ERROR] Git not found. Please install git cli");
-            }
-            console.log("[INFO] Reverting back changes...");
-            process.exit(1);
-        }
-        console.log(`[INFO] Git found. Cloning into ${dir}`);
-        exec("git clone https://github.com/rovelstars/reejs.git .reejs", { cwd: home }, (err, stdout, stderr) => {
-            if (err) {
-                console.log("[ERROR] Git clone failed. Please try again");
-                console.log(err);
-                console.log("[INFO] Reverting back changes...");
-                process.exit(1);
-            }
-            console.log("[INFO] Git clone successful. Installing libraries...");
-            exec("npm link .", { cwd: dir + "/toolkit/" }, (err, stdout, stderr) => {
-                if (err) {
-                    console.log("[ERROR] Installing libraries failed. Please try again");
-                    console.log("[INFO] Reverting back changes...");
-                    process.exit(1);
-                }
-                console.log("[INFO] Installing libraries successful! Cleaning up files...");
-                fs.rmdirSync(dir + "/.git", { recursive: true, force: true });
-                console.log("[INFO] Cleaning up files successful! Reejs has been installed!\nTry it out by running `reejs init reejs-app`");
-                process.exit(0);
-            });
-        });
+function readConfig(arr, word) {
+    let e = arr.filter((l) => {
+        return l.split(":")[0] == word;
     });
+    if (e?.length) return e[0].replace(`${word}:`, "");
+    else return undefined;
 }
-else {
-    console.log("[WARN] reejs toolkit is already installed. If you want to reinstall, delete the directory at: " + dir);
+function isReejsFolder() {
+    return fs.existsSync(`${process.cwd()}/.reecfg`);
 }
+function downloadFile(url, dest, cb) {
+    var file = fs.createWriteStream(dest);
+    get(url, function(response) {
+      response.pipe(file);
+      file.on('finish', function() {
+        file.close(cb);
+      });
+    });
+  }
 
-process.on('SIGINT', function () {
-    console.log("\n[INFO] Cleaning up files...");
+const cli = sade("reejs");
+cli.version(pkg.version);
+
+//read all the files from cmds folder and eval them
+const cmds = fs.readdirSync(`${__dirname}/cmds`);
+cmds.filter(f => f.endsWith(".js")).forEach(cmd => {
+    const file = `${__dirname}/cmds/${cmd}`;
+    const code = fs.readFileSync(file, "utf8");
+    eval(code);
 });
 
-process.on('SIGTERM', function () {
-    console.log("\n[INFO] Cleaning up files...");
-});
+cli.parse(process.argv);

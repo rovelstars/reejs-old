@@ -38,7 +38,7 @@ if (!fs.existsSync(dir)) {
             process.exit(1);
         }
         console.log(`[INFO] Git found. Cloning into ${dir}`);
-        exec("git clone https://github.com/rovelstars/reejs.git .reejs", {cwd: dir}, (err, stdout, stderr) => {
+        exec("git clone https://github.com/rovelstars/reejs.git .reejs", { cwd: home }, (err, stdout, stderr) => {
             if (err) {
                 console.log("[ERROR] Git clone failed. Please try again");
                 console.log(err);
@@ -53,9 +53,9 @@ if (!fs.existsSync(dir)) {
                     process.exit(1);
                 }
                 console.log("[INFO] Installing libraries successful! Cleaning up files...");
-                fs.rmdirSync(dir+"/.git");
-                    console.log("[INFO] Cleaning up files successful! Reejs has been installed!\nTry it out by running `reejs init reejs-app`");
-                    process.exit(0);
+                fs.rmdirSync(dir + "/.git", { recursive: true, force: true });
+                console.log("[INFO] Cleaning up files successful! Reejs has been installed!\nTry it out by running `reejs init reejs-app`");
+                process.exit(0);
             });
         });
     });
