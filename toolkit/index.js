@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import sade from "./libs/sade/index.js";
 import color from "./libs/@reejs/colors/index.js";
 import { exec } from "child_process";
-import { createServer } from 'http'
+import { createServer, get } from 'http'
 import { createApp } from './libs/h3/index.js'
 import fs from "fs";
 const __filename = fileURLToPath(import.meta.url);
@@ -15,16 +15,25 @@ function logger(msg, lvl = "DEBUG") {
     lvl = lvl.toUpperCase();
     console.log(`[${lvl}] ${msg}`);
 }
-function findLine(arr, word) {
+function readConfig(arr, word) {
     let e = arr.filter((l) => {
         return l.split(":")[0] == word;
     });
     if (e?.length) return e[0].replace(`${word}:`, "");
     else return undefined;
 }
-function isReejsFolder(dir) {
-    return fs.existsSync(`${dir}/config.reejs`);
+function isReejsFolder() {
+    return fs.existsSync(`${process.cwd()}/.reecfg`);
 }
+function downloadFile(url, dest, cb) {
+    var file = fs.createWriteStream(dest);
+    get(url, function(response) {
+      response.pipe(file);
+      file.on('finish', function() {
+        file.close(cb);
+      });
+    });
+  }
 
 const cli = sade("reejs");
 cli.version(pkg.version);
