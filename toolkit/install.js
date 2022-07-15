@@ -61,7 +61,7 @@ if (!fs.existsSync(dir)) {
           (err, stdout, stderr) => {
             if (err) {
               console.log(
-                "[ERROR] Installing libraries failed. Please try again"
+                "[ERROR] Linking Ree.js failed. Please try again"
               );
               console.log("[INFO] Reverting back changes...");
               process.exit(1);
