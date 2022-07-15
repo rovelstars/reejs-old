@@ -25,10 +25,20 @@ function logger(msg, lvl = "DEBUG") {
 }
 function readConfig(arr, word) {
   let e = arr.filter((l) => {
-    return l.split(":")[0] == word;
+    return l.split(":")[0].trim() == word.trim();
   });
-  if (e?.length) return e[0].replace(`${word}:`, "");
-  else return undefined;
+  if (e?.length) {
+    let r = e[0].replace(`${word}:`, "");
+    if (r.includes("|")) {
+      r = r.split("|").map((e) => {
+        return e.trim();
+      });
+      return r;
+    } else {
+      r = r.trim();
+      return r;
+    }
+  } else return undefined;
 }
 function isReejsFolder() {
   return fs.existsSync(`${process.cwd()}/.reecfg`);
