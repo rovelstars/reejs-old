@@ -76,6 +76,7 @@ if (!fs.existsSync(dir)) {
                   console.log(
                     "[ERROR] Installing dependencies failed. Please try again"
                   );
+                  console.log(err);
                   console.log("[INFO] Reverting back changes...");
                   process.exit(1);
                 }
