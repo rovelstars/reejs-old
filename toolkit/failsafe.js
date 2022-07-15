@@ -2,7 +2,8 @@
 //This is the file that installs the dependencies for the toolkit so toolkit can be used. Exactly follows the specification of cmds/install.js
 
 //polyfills
-
+import path from "path";
+import { fileURLToPath } from "url";
 import { get } from 'https';
 import fs from "fs";
 const __filename = fileURLToPath(import.meta.url);
