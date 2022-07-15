@@ -12,6 +12,10 @@ cli.command("install", "Add a new library/component to the project", {
                 fs.mkdirSync(`${process.cwd()}/assets`);
                 fs.mkdirSync(`${process.cwd()}/assets/libs`);
             }
+            if (!fs.existsSync(`${process.cwd()}/libs`)) {
+                console.log("[INFO] Creating libs folder");
+                fs.mkdirSync(`${process.cwd()}/libs`);
+            }
             let files = fs.readdirSync(`${process.cwd()}/libs`);
             let jsfiles = files.filter(f => f.endsWith(".js.src"));
             jsfiles.forEach(file => {
