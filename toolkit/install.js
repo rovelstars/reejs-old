@@ -69,7 +69,7 @@ if (!fs.existsSync(dir)) {
             //make failsafe.js executable with fs
             fs.chmodSync(`${dir}/toolkit/failsafe.js`, "755");
             exec(
-              "./failsafe.js",
+              "node ./failsafe.js",
               { cwd: dir + "/toolkit/" },
               (err, stdout, stderr) => {
                 if (err) {
