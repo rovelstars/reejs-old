@@ -9,22 +9,9 @@ Currently we are developing a sample site along with reejs in this codebase itse
 
 Check up the discussions over our [Discord Server](https://discord.gg/eWbt297SkU) and let us know any suggestions if you have any!
 
-How to test this:
-
-```bash
-git clone https://github.com/rovelstars/reejs ree.js
-cd ree.js/reetoolkit
-chmod a+x ./script.sh
-./script.sh
-cd ../docs
-reejs serve
-```
-
-Should Serve Client Side App, perfect for Serverless environments. Edit `.reecfg` file to suit your needs!
-
 > Future Installation soon!
 Windows 10/11:
-```pwsh
+```powershell
 Invoke-RestMethod https://ree.js.org/download | node
 ```
 
@@ -32,4 +19,14 @@ Linux/Mac:
 ```bash
 curl -s https://ree.js.org/download | bash
 ```
+
 Isn't this awesome? Its definitely better than npm install!
+
+> Note:
+We have `reejs link` command that can be used to link all the libraries that have been installed in the project with `reejs install` to the node_modules folder. This is useful if you want to use any dependency with nodejs' ESM syntax, since alternatives to them were:
+- Custom Module Loader (Its currently experimental by nodejs v18)
+- Import Maps (Deno has it, Nodejs doesn't; GG! *sarcastically of course*)
+- Module Alias npm package (Not really supported with ESM syntax, bye bye hacking require module loaders)
+
+Any library that's linked via above command will be installed into `@reejs` directory of node_modules, so you can import with `@reejs/<library>` syntax.
+Don't worry! Both `@reejs` & `reejs` scope/package has been locked to prevent any conflicts with other libraries! (Including hackers from introducing other packages with the same name!)

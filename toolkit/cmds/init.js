@@ -19,14 +19,9 @@ cli.command("init")
                 //change to the new folder
                 process.chdir(opts.name);
                 //delete the .git folder
-                exec("rm -rf .git", (err) => {
-                    if (err) {
-                        console.log(color("Error deleting the .git folder", "red"));
-                        return process.exit(1);
-                    }
+                fs.rmSync(`.git`, { recursive: true, force: true }).catch(_ => {});
                     console.log(color(`Project ${color(opts.name, "", "greenBg")} created!`, "green", "greenBg"));
                     console.log("To get started, run the following ", "`" + color(`cd ${opts.name} && reejs serve`, "", "blackBrightBg") + "`", " command");
-                });
             });
         });
     })
