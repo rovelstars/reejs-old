@@ -11,6 +11,7 @@
   "author": "@rovelstars",
   "license": "MIT",
   "bin": {
-    "reejs": "./index.js"
-  }
+    "reejs": "index.js"
+  },
+  "devDependencies": {}
 }
