@@ -7,6 +7,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-exec(`node ./failsafe/install.js && ./failsafe/link.js`, {cwd: __dirname},()=>{
-  console.log("[INFO] Installing and linking dependencies for toolkit!");
+exec(`node ./failsafe/install.js`, {cwd: __dirname},()=>{
+  console.log("[INFO] Installed Toolkit Dependencies");
+  exec(`node ./failsafe/failsafe.js`, {cwd: __dirname},()=>{
+    console.log("[INFO] Linked Toolkit Dependencies");
+  });
 });
