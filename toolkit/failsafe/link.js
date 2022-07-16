@@ -20,7 +20,9 @@ function logger(msg, lvl = "DEBUG") {
   console.log(`[${lvl}] ${msg}`);
 }
 function readConfig(arr, word) {
-  let e = arr.filter((l) => {
+  let e = arr
+  .filter((l)=>{return !l.startsWith("#")})
+  .filter((l) => {
     return l.split(":")[0].trim() == word.trim();
   });
   if (e?.length) {
@@ -60,22 +62,24 @@ console.log(`[INFO] Linking ${color("assets/libs","","blueBrightBg")} folder!`);
         libs.forEach(lib=>{
             //make soft link to node_modules/@reejs/<lib>
             let libPath = `${process.cwd()}/assets/libs/${lib}`;
-            let libLink = `${process.cwd()}/node_modules/@reejs/${lib}`;
-            if(!fs.existsSync(`${process.cwd()}/node_modules/@reejs/`)) {
+            let jsSrc = fs.readFileSync(`${libPath}/.js.src`,"utf8").split("\n");
+            let scope = (readConfig(jsSrc, "scope") || "true")=="true"?true:false;
+            let alias = readConfig(jsSrc, "alias");
+            let libLink = `${process.cwd()}/node_modules/${scope?"@reejs/":""}${alias || lib}`;
+            if(!fs.existsSync(`${process.cwd()}/node_modules/${scope?"@reejs/":""}${alias || lib}`)) {
                 try{
                 fs.mkdirSync(`${process.cwd()}/node_modules/`);
                 }catch(e){}
                 try{
-                fs.mkdirSync(`${process.cwd()}/node_modules/@reejs/`);
+                fs.mkdirSync(`${process.cwd()}/node_modules/${scope?"@reejs/":""}`);
                 }catch(e){}
-                console.log(`[INFO] Creating ${color("@reejs","","blueBrightBg")} folder to link all the libraries!`);
             }
             if(!fs.existsSync(libLink)) {
                 fs.symlinkSync(libPath,libLink);
-                console.log(`[INFO] Linked ${color(lib,"","blueBrightBg")} -> ${color("@reejs/"+lib,"","blueBrightBg")}`);
+                console.log(`[INFO] Linked ${color(lib,"","blueBrightBg")} -> ${color(scope?"@reejs/":""+(alias || lib),"","blueBrightBg")}`);
             }
             else{
-                console.log(`[INFO] ${color(lib,"","blueBrightBg")} is already linked; skipping...`);
+                console.log(`[INFO] ${color(lib,"","blueBrightBg")} is already linked${alias?` (as ${alias})`:""}; skipping...`);
             }
         }
         );

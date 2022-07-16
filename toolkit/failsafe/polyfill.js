@@ -20,7 +20,8 @@ function logger(msg, lvl = "DEBUG") {
   console.log(`[${lvl}] ${msg}`);
 }
 function readConfig(arr, word) {
-  let e = arr.filter((l) => {
+  let e = arr
+  .filter((l) => {
     return l.split(":")[0].trim() == word.trim();
   });
   if (e?.length) {

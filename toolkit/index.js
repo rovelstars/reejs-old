@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import path from "path";
 import { fileURLToPath } from "url";
-import sade from "./assets/libs/sade/index.js";
-import color from "./assets/libs/colors/index.js";
+import sade from "sade";
+import color from "colors";
 import { exec, spawn } from "child_process";
 import { get } from "https";
 import fs from "fs";
@@ -24,7 +24,9 @@ function logger(msg, lvl = "DEBUG") {
   console.log(`[${lvl}] ${msg}`);
 }
 function readConfig(arr, word) {
-  let e = arr.filter((l) => {
+  let e = arr
+  .filter((l)=>{return !l.startsWith("#")})
+  .filter((l) => {
     return l.split(":")[0].trim() == word.trim();
   });
   if (e?.length) {

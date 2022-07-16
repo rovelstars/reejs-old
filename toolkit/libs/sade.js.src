@@ -1,5 +1,5 @@
-url:https://cdn.jsdelivr.net/gh/lukeed/sade@1.8.1/src/index.js
+url:https://cdn.jsdelivr.net/npm/sade@1.8.1/lib/index.mjs
 version:1.8.1
 type:module
-more:[https://cdn.jsdelivr.net/gh/lukeed/sade@1.8.1/src/utils.js]
-more_as:[utils.js]
+alias:sade
+scope:false
