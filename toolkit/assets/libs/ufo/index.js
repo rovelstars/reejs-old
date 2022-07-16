@@ -164,7 +164,7 @@ function parseQuery(paramsStr = "") {
   return obj;
 }
 function encodeQueryItem(key, val) {
-  if (typeof val === "number" || typeof val === "boolean") {
+  if (typeof val === "number") {
     val = String(val);
   }
   if (!val) {
@@ -268,10 +268,8 @@ class $URL {
 function isRelative(inputStr) {
   return ["./", "../"].some((str) => inputStr.startsWith(str));
 }
-const PROTOCOL_REGEX = /^\w+:(\/\/)?/;
-const PROTOCOL_RELATIVE_REGEX = /^\/\/[^/]+/;
 function hasProtocol(inputStr, acceptProtocolRelative = false) {
-  return PROTOCOL_REGEX.test(inputStr) || acceptProtocolRelative && PROTOCOL_RELATIVE_REGEX.test(inputStr);
+  return /^\w+:(\/\/)?.+/.test(inputStr) || acceptProtocolRelative && /^\/\/[^/]+/.test(inputStr);
 }
 const TRAILING_SLASH_RE = /\/$|\/\?/;
 function hasTrailingSlash(input = "", queryParams = false) {
@@ -327,11 +325,10 @@ function withoutBase(input, base) {
     return input;
   }
   const _base = withoutTrailingSlash(base);
-  if (!input.startsWith(_base)) {
-    return input;
+  if (input.startsWith(_base)) {
+    return input.substr(_base.length) || "/";
   }
-  const trimmed = input.substring(_base.length);
-  return trimmed[0] === "/" ? trimmed : "/" + trimmed;
+  return input;
 }
 function withQuery(input, query) {
   const parsed = parseURL(input);
@@ -355,22 +352,6 @@ function joinURL(base, ...input) {
   }
   return url;
 }
-function withHttp(input) {
-  return withProtocol(input, "http://");
-}
-function withHttps(input) {
-  return withProtocol(input, "https://");
-}
-function withoutProtocol(input) {
-  return withProtocol(input, "");
-}
-function withProtocol(input, protocol) {
-  const match = input.match(PROTOCOL_REGEX);
-  if (!match) {
-    return protocol + input;
-  }
-  return protocol + input.substring(match[0].length);
-}
 function createURL(input) {
   return new $URL(input);
 }
@@ -386,21 +367,6 @@ function resolveURL(base, ...input) {
 }
 function isSamePath(p1, p2) {
   return decode(withoutTrailingSlash(p1)) === decode(withoutTrailingSlash(p2));
-}
-function isEqual(a, b, opts = {}) {
-  if (!opts.trailingSlash) {
-    a = withTrailingSlash(a);
-    b = withTrailingSlash(b);
-  }
-  if (!opts.leadingSlash) {
-    a = withLeadingSlash(a);
-    b = withLeadingSlash(b);
-  }
-  if (!opts.encoding) {
-    a = decode(a);
-    b = decode(b);
-  }
-  return a === b;
 }
 
 function parseURL(input = "", defaultProto) {
@@ -449,4 +415,4 @@ function stringifyParsedURL(parsed) {
   return parsed.protocol + "//" + (parsed.auth ? parsed.auth + "@" : "") + parsed.host + fullpath;
 }
 
-export { $URL, cleanDoubleSlashes, createURL, decode, decodePath, decodeQueryValue, encode, encodeHash, encodeHost, encodeParam, encodePath, encodeQueryItem, encodeQueryKey, encodeQueryValue, getQuery, hasLeadingSlash, hasProtocol, hasTrailingSlash, isEmptyURL, isEqual, isNonEmptyURL, isRelative, isSamePath, joinURL, normalizeURL, parseAuth, parseHost, parsePath, parseQuery, parseURL, resolveURL, stringifyParsedURL, stringifyQuery, withBase, withHttp, withHttps, withLeadingSlash, withProtocol, withQuery, withTrailingSlash, withoutBase, withoutLeadingSlash, withoutProtocol, withoutTrailingSlash };
+export { $URL, cleanDoubleSlashes, createURL, decode, decodePath, decodeQueryValue, encode, encodeHash, encodeHost, encodeParam, encodePath, encodeQueryItem, encodeQueryKey, encodeQueryValue, getQuery, hasLeadingSlash, hasProtocol, hasTrailingSlash, isEmptyURL, isNonEmptyURL, isRelative, isSamePath, joinURL, normalizeURL, parseAuth, parseHost, parsePath, parseQuery, parseURL, resolveURL, stringifyParsedURL, stringifyQuery, withBase, withLeadingSlash, withQuery, withTrailingSlash, withoutBase, withoutLeadingSlash, withoutTrailingSlash };

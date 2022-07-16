@@ -1,9 +1,5 @@
-#!/usr/bin/env node
 import path from "path";
 import { fileURLToPath } from "url";
-import sade from "./assets/libs/sade/index.js";
-import color from "./assets/libs/colors/index.js";
-import { exec, spawn } from "child_process";
 import { get } from "https";
 import fs from "fs";
 const __filename = fileURLToPath(import.meta.url);
@@ -42,7 +38,7 @@ function readConfig(arr, word) {
   } else return undefined;
 }
 function isReejsFolder() {
-  return fs.existsSync(`${process.cwd()}/.reecfg`);
+  return true;
 }
 function downloadFile(url, dest, cb) {
   var file = fs.createWriteStream(dest);
@@ -54,17 +50,9 @@ function downloadFile(url, dest, cb) {
   });
 }
 
-const cli = sade("reejs");
-cli.version(pkg.version);
+function color(str, color, bg) {
+  return str;
+}
+let opts = { force: true };
 
-//read all the files from cmds folder and eval them
-const cmds = fs.readdirSync(`${__dirname}/cmds`);
-cmds
-  .filter((f) => f.endsWith(".js"))
-  .forEach((cmd) => {
-    const file = `${__dirname}/cmds/${cmd}`;
-    const code = fs.readFileSync(file, "utf8");
-    eval(code);
-  });
-
-cli.parse(process.argv);
+console.log("[FAILSAFE] Setting up polyfills...");

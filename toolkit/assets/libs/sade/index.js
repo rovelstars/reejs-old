@@ -1,6 +1,6 @@
-import mri from '../mri/index.js';
-import * as $ from './utils.js';
-import { ALL, DEF } from './utils.js';
+import mri from 'mri';
+import * as $ from './utils';
+import { ALL, DEF } from './utils';
 
 class Sade {
 	constructor(name, isOne) {
@@ -165,7 +165,7 @@ class Sade {
 		if (!!~idx) arr.splice(idx, tmp.length);
 
 		let vals = mri(arr.slice(offset), opts);
-		if (!vals || typeof vals === 'string') {
+		if (!vals || typeof vals === 'string') {
 			return $.error(bin, vals || 'Parsed unknown option flag(s)!');
 		}
 

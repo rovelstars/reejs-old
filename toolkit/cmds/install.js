@@ -31,8 +31,8 @@ cli
         const name = file.replace(".js.src", "");
         const dest = `${process.cwd()}/assets/libs/${name}/`;
         
-          if (opts.force == "true" && fs.existsSync(dest)) {
-            fs.unlinkSync(dest);
+          if (opts.force && fs.existsSync(dest)) {
+            fs.rmSync(dest, { recursive: true, force: true });
             console.log(`[INFO] Removed ${name}`);
           }
           if (fs.existsSync(dest + ".js.src")) {
@@ -48,7 +48,7 @@ cli
             let oldUrl = readConfig(data, "url");
             let newUrl = readConfig(newData, "url");
             let moduleType = readConfig(data, "type") || "commonjs";
-            let as = readConfig(newData, "as") || name+".js";
+            let as = readConfig(newData, "as") || "index.js";
             let more = readConfig(newData, "more");
             let more_as;
             if(more) {
@@ -106,7 +106,7 @@ cli
             newData = newData.split("\n");
             let newVersion = readConfig(newData, "version");
             let newUrl = readConfig(newData, "url");
-            let as = readConfig(newData, "as") || name+".js";
+            let as = readConfig(newData, "as") || "index.js";
             let moduleType = readConfig(newData, "type") || "commonjs";
             let more = readConfig(newData, "more");
             let more_as;

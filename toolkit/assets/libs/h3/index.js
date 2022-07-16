@@ -1,7 +1,7 @@
-import { getQuery, withoutTrailingSlash, withoutBase } from '../ufo/index.js';
-import { createRouter as createRouter$1 } from '../radix3/index.js';
-import destr from '../destr/index.js';
-import { parse, serialize } from '../cookie-es/index.js';
+import { getQuery, withoutTrailingSlash, withoutBase } from 'ufo';
+import { createRouter as createRouter$1 } from 'radix3';
+import destr from 'destr';
+import { parse, serialize } from 'cookie-es';
 
 function useQuery(event) {
   return getQuery(event.req.url || "");
