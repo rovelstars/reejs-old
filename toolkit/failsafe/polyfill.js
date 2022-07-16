@@ -4,7 +4,7 @@ import { get } from "https";
 import fs from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const pkg = JSON.parse(fs.readFileSync(`${__dirname}/package.json`, "utf8"));
+const pkg = JSON.parse(fs.readFileSync(`${__dirname}/../package.json`, "utf8"));
 import { homedir, platform } from "os";
 let home = homedir();
 let os = platform();
