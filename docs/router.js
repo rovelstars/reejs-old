@@ -1,5 +1,5 @@
-let path = await import("/pathToRegexp.js");
-import { render } from "/reender.js";
+let path = await import("pathToRegexp");
+import { render } from "reender";
 let data;
 let initHead;
 let currentHead;

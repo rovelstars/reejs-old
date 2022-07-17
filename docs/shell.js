@@ -41,7 +41,7 @@ ree.init = async function(options) {
       }
     logger("Registering Routes","DEBUG");
     ree.routes = routes;
-    ree.router = await import("/router.js");
+    ree.router = await import("router");
     logger(`Render type: ${ree.cfg("render")}`, "DEBUG");
     ree.router.load(undefined,{init:true});
     };

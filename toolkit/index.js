@@ -2,7 +2,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import sade from "sade";
-import color from "colors";
+import color from "@reejs/colors";
 import { exec, spawn } from "child_process";
 import { get } from "https";
 import fs from "fs";

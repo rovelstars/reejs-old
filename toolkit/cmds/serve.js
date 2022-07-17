@@ -43,7 +43,7 @@ cli.command("serve")
                 console.log(color("Ree.js is running in production mode!\nSpawning a new process to run the server...", "green"));
                 let child = spawn("node", [path.join(__dirname, "cmds", "server", "index.js")], {
                     stdio: "inherit",
-                    detached: true
+                    detached: false
                 });
             }
         }

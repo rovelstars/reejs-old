@@ -223,17 +223,17 @@ if (cmd == "reinstall") {
       "utf8"
     );
     fs.writeFileSync(
-      `${project}/libs/dragabilly.js.src`,
+      `${project}/libs/dragabilly.rekt`,
       `url:https://unpkg.com/draggabilly@{{ver}}/dist/draggabilly.pkgd.min.js\nversion:latest`,
       "utf8"
     );
     fs.writeFileSync(
-      `${project}/libs/pathToRegexp.js.src`,
+      `${project}/libs/pathToRegexp.rekt`,
       `url:https://unpkg.com/path-to-regexp@{{ver}}/dist.es2015/index.js\nversion:6.2.1\ndelmap://# sourceMappingURL=index.js.map`,
       "utf-8"
     );
     fs.writeFileSync(
-      `${project}/libs/router.js.src`,
+      `${project}/libs/router.rekt`,
       `url:https://ree.js.org/download/router.js\nversion:0.0.1`,
       "utf-8"
     );
@@ -278,28 +278,28 @@ if (cmd == "reinstall") {
   }
   let system = findLine(cfg, "system");
   if (system == "react") {
-    if (fs.existsSync("./libs/ree.vue.js.src")) {
-      fs.unlinkSync("./libs/ree.vue.js.src");
+    if (fs.existsSync("./libs/ree.vue.rekt")) {
+      fs.unlinkSync("./libs/ree.vue.rekt");
     }
-    if (fs.existsSync("./libs/ree.react.js.src")) {
+    if (fs.existsSync("./libs/ree.react.rekt")) {
       logger(`${system} is already installed!`, "warn");
     } else {
       fs.writeFileSync(
-        "./libs/ree.react.js.src",
+        "./libs/ree.react.rekt",
         `url:https://unpkg.com/htm@{{ver}}/preact/standalone.module.js\nversion:3.1.1`,
         "utf8"
       );
       logger(`${system} is now installed!`, "info");
     }
   } else if (system == "vue") {
-    if (fs.existsSync("./libs/ree.react.js.src")) {
-      fs.unlinkSync("./libs/ree.react.js.src");
+    if (fs.existsSync("./libs/ree.react.rekt")) {
+      fs.unlinkSync("./libs/ree.react.rekt");
     }
-    if (fs.existsSync("./libs/ree.vue.js.src")) {
+    if (fs.existsSync("./libs/ree.vue.rekt")) {
       logger(`${system} is already installed!`, "warn");
     } else {
       fs.writeFileSync(
-        "./libs/ree.vue.js.src",
+        "./libs/ree.vue.rekt",
         `url:https://unpkg.com/vue@{{ver}}/dist/vue.esm-browser.prod.js\nversion:3.2.36`,
         "utf8"
       );
@@ -310,7 +310,7 @@ if (cmd == "reinstall") {
   let libsrcs = fs.readdirSync("./libs").filter((f) => f.endsWith(".src"));
   libsrcs.forEach(async (lib) => {
     let data = fs.readFileSync(`./libs/${lib}`, "utf-8");
-    lib = lib.replace(".js.src", ".js");
+    lib = lib.replace(".rekt", ".js");
     //check if file exists
     let oldcode;
     if (fs.existsSync(`./dist/libs/${lib}`)) {

@@ -1,5 +1,5 @@
 let renderType = ree.opts.render;
-let lib = await import(`/ree.${renderType}.js`);
+let lib = await import("react");
 
 export async function render(url,config){
     url = url.slice(1);
@@ -8,7 +8,7 @@ export async function render(url,config){
     }
 
 if(renderType=="react"){
-    let page = await import(`/pages/${url}.js`);
+    let page = await import(`/src/pages/${url}.js`);
     function decodeHTMLEntities(text) {
         var textArea = document.createElement('textarea');
         textArea.innerHTML = text;

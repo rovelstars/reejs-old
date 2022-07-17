@@ -61,9 +61,9 @@ let opts = { force: true };
 
 console.log("[FAILSAFE] Setting up polyfills...");
 
-//check for all the files that end with .js.src
+//check for all the files that end with .rekt
 //if same files with extension .js exists, skip
-//if not, copy the file with extension .js.src to .js
+//if not, copy the file with extension .rekt to .js
 if (isReejsFolder()) {
   if (!fs.existsSync(`${process.cwd()}/assets/libs/`)) {
     console.log("[INFO] Creating assets folder");
@@ -79,17 +79,17 @@ if (isReejsFolder()) {
     fs.mkdirSync(`${process.cwd()}/libs`);
   }
   let files = fs.readdirSync(`${process.cwd()}/libs`);
-  let jsfiles = files.filter((f) => f.endsWith(".js.src"));
+  let jsfiles = files.filter((f) => f.endsWith(".rekt"));
   jsfiles.forEach((file) => {
-    const name = file.replace(".js.src", "");
+    const name = file.replace(".rekt", "");
     let dest = `${process.cwd()}/assets/libs/${name}/`;
 
     if (opts.force && fs.existsSync(dest)) {
       fs.rmSync(dest, { recursive: true, force: true });
       console.log(`[INFO] Removed ${name}`);
     }
-    if (fs.existsSync(dest + ".js.src")) {
-      let data = fs.readFileSync(dest + ".js.src", "utf8");
+    if (fs.existsSync(dest + ".rekt")) {
+      let data = fs.readFileSync(dest + ".rekt", "utf8");
       let newData = fs.readFileSync(`${process.cwd()}/libs/${file}`, "utf8");
       newData = newData.split("\n");
       data = data.split("\n");
@@ -172,7 +172,7 @@ if (isReejsFolder()) {
         //copy js.src to assets
         fs.copyFileSync(
           `${process.cwd()}/libs/${file}`,
-          `${process.cwd()}/assets/libs/${name}/.js.src`
+          `${process.cwd()}/assets/libs/${name}/.rekt`
         );
         let pkg = `{"name":"${name}","version":"${newVersion}","url":"${newUrl}","main":"${dir+"/"+_as}","type":"${moduleType}"}`;
         fs.writeFileSync(
@@ -254,7 +254,7 @@ if (isReejsFolder()) {
       //copy js.src to assets
       fs.copyFileSync(
         `${process.cwd()}/libs/${file}`,
-        `${process.cwd()}/assets/libs/${name}/.js.src`
+        `${process.cwd()}/assets/libs/${name}/.rekt`
       );
       let pkg = `{"name":"${name}","version":"${newVersion}","url":"${newUrl}","main":"${dir+"/"+_as}","type":"${moduleType}"}`;
       fs.writeFileSync(

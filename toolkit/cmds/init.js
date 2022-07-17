@@ -1,6 +1,6 @@
 cli.command("init")
     .option("-n --name", "name of the project", "reejs-app")
-    .option("-u --url", "url of the project", "https://github.com/rovelstars/create-reejs-app")
+    .option("-u --url", "url of the project", "https://github.com/ree-js/create-reeact-app")
     .describe(`Initialize a new project`)
     .action((opts) => {
         //check if git is installed
@@ -10,10 +10,10 @@ cli.command("init")
                 return process.exit(1);
             }
             //clone the repo
-            console.log(`Cloning the ${opts.url == "https://github.com/rovelstars/create-reejs-app" ? "default" : "specified"} repo to ${color(opts.name, "", "greenBg")}`);
+            console.log(`Cloning the ${opts.url == "https://github.com/ree-js/create-reeact-app" ? "default" : opts.url} repo to ${color(opts.name, "", "greenBg")}`);
             exec(`git clone ${opts.url} ${opts.name}`, (err) => {
                 if (err) {
-                    console.log(color("Error cloning the repo, maybe check whether the folder with name " + color(opts.name, "", "redBg"), "red"), color("exists", "red"));
+                    console.log(color("Error cloning the repo, maybe check whether the folder with name " + color(opts.name, "", "redBg"), "red"), color("exists", "red"), color(`and repo url ${color(opts.url, "", "redBg")}`, "red"), color(`is correct`,"red"));
                     return process.exit(1);
                 }
                 //change to the new folder

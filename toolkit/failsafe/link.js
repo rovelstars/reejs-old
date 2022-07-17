@@ -62,7 +62,7 @@ console.log(`[INFO] Linking ${color("assets/libs","","blueBrightBg")} folder!`);
         libs.forEach(lib=>{
             //make soft link to node_modules/@reejs/<lib>
             let libPath = `${process.cwd()}/assets/libs/${lib}`;
-            let jsSrc = fs.readFileSync(`${libPath}/.js.src`,"utf8").split("\n");
+            let jsSrc = fs.readFileSync(`${libPath}/.rekt`,"utf8").split("\n");
             let scope = (readConfig(jsSrc, "scope") || "true")=="true"?true:false;
             let alias = readConfig(jsSrc, "alias");
             let libLink = `${process.cwd()}/node_modules/${scope?"@reejs/":""}${alias || lib}`;
