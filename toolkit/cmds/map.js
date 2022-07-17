@@ -25,8 +25,9 @@ cli
       let more = readConfig(jsSrc, "more");
       if (more) {
         let more_as = readConfig(jsSrc, "more_as");
+        let more_alias = readConfig(jsSrc, "more_alias") || [];
         more.forEach((m,i) => {
-          imports[`${alias}/${more_as[i]}`] = `/assets/libs/${lib}/${more_as[i]}`;
+          imports[`${alias}/${more_alias[i] || more_as[i]}`] = `/assets/libs/${lib}/${more_as[i]}`;
         });
       }
     });
