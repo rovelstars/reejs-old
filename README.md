@@ -9,7 +9,7 @@ Currently we are developing a sample site along with reejs in this codebase itse
 
 Check up the discussions over our [Discord Server](https://discord.gg/eWbt297SkU) and let us know any suggestions if you have any!
 
-> Future Installation soon!
+> Install with:
 Windows 10/11:
 ```powershell
 Invoke-RestMethod https://ree.js.org/download | node
