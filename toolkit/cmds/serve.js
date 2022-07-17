@@ -7,6 +7,9 @@ cli.command("serve")
             let reecfg = fs.readFileSync(path.join(process.cwd(), ".reecfg"), "utf8").split("\n");
             let rexMode = readConfig(reecfg, "rex")=="true";
             if(rexMode) console.log(color("REX mode enabled!", "red"));
+            if(!fs.existsSync(`${process.cwd()}/import-maps.json`)){
+                console.log(color("[WARN] Import Maps was not found. Libraries won't be linked!", "red"));
+            }
             if(readConfig(reecfg,"env")=="dev"){
                 console.log(color("Ree.js is running in development mode!\nWatching for file changes!", "green"));
                 //use fs.watch to watch for changes in the cmds/server/index.js file
@@ -24,7 +27,7 @@ cli.command("serve")
                     });
                 };
                 let wait=false;
-                fs.watch(`${__dirname}/cmds/server/index.js`,async(event, filename) => {
+                fs.watch(`${process.cwd()}/`,async(event, filename) => {
                     if(event=="change" && !wait){
                     reload();
                     wait=true;

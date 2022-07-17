@@ -22,6 +22,13 @@ cli
       let url = `/assets/libs/${lib}/${_as ? _as : "index.js"}`;
         //add to imports
         imports[alias] = url;
+      let more = readConfig(jsSrc, "more");
+      if (more) {
+        let more_as = readConfig(jsSrc, "more_as");
+        more.forEach((m,i) => {
+          imports[`${alias}/${more_as[i]}`] = `/assets/libs/${lib}/${more_as[i]}`;
+        });
+      }
     });
     //write to import-maps.json
     fs.writeFileSync(`${process.cwd()}/import-maps.json`, JSON.stringify({imports}));

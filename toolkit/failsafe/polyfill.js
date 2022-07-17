@@ -21,6 +21,7 @@ function logger(msg, lvl = "DEBUG") {
 }
 function readConfig(arr, word) {
   let e = arr
+  .filter((l)=>{return !l.startsWith("#")})
   .filter((l) => {
     return l.split(":")[0].trim() == word.trim();
   });
@@ -29,11 +30,18 @@ function readConfig(arr, word) {
     if (r.includes("|") ||(r.startsWith("[") && r.endsWith("]"))) {
       r = r.substring(1, r.length - 1);
       r = r.split("|").map((e) => {
-        return e.trim();
+        e = e.trim();
+        if (e.startsWith("\"") && e.endsWith("\"")) {
+          e = e.substring(1, e.length - 1);
+        }
+        return e;
       });
       return r;
     } else {
       r = r.trim();
+      if (r.startsWith("\"") && r.endsWith("\"")) {
+        r = r.substring(1, r.length - 1);
+      }
       return r;
     }
   } else return undefined;

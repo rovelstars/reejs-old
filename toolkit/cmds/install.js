@@ -65,6 +65,18 @@ cli
           let more_as;
           if (more) {
             more_as = readConfig(newData, "more_as");
+            if(more_as.some((a) => a.includes("/"))) {
+              more_as.forEach((a, i) => {
+                let temp = a.split("/");
+                a = temp.pop();
+                let dir = temp.join("/");
+                let tempdir = `${process.cwd()}/assets/libs/${name}/${dir}`;
+                if (!fs.existsSync(tempdir)) {
+                  console.log(`[INFO] Creating directory ${dir} for ${a}`);
+                  fs.mkdirSync(tempdir, { recursive: true });
+                }
+              });
+            }
           }
           if (more && more?.length != more_as?.length) {
             console.log(
@@ -101,6 +113,21 @@ cli
                   "blue"
                 )} -> ${color(`/${name}/` + _as, "yellow")}]`
               );
+              //read same file
+              let data = fs.readFileSync(dest + _as, "utf8");
+              data = data.split("\n");
+              //find the line that starts with "//# sourceMappingURL"
+              let sourceMapLine = data.findIndex((line) =>
+                line.startsWith("//# sourceMappingURL")
+              );
+              //remove that line if exists
+              if (sourceMapLine != -1) {
+                data.splice(sourceMapLine, 1);
+                fs.writeFileSync(dest + _as, data.join("\n"));
+              }
+              //join data and write it to the file
+              data = data.join("\n");
+              fs.writeFileSync(dest + _as, data);
             });
             if (more) {
               more.forEach((m, i) => {
@@ -114,6 +141,21 @@ cli
                       "yellow"
                     )}]`
                   );
+                  //read same file
+              let data = fs.readFileSync(dest + _as, "utf8");
+              data = data.split("\n");
+              //find the line that starts with "//# sourceMappingURL"
+              let sourceMapLine = data.findIndex((line) =>
+                line.startsWith("//# sourceMappingURL")
+              );
+              //remove that line if exists
+              if (sourceMapLine != -1) {
+                data.splice(sourceMapLine, 1);
+                fs.writeFileSync(dest + _as, data.join("\n"));
+              }
+              //join data and write it to the file
+              data = data.join("\n");
+              fs.writeFileSync(dest + _as, data);
                 });
               });
             }
@@ -133,7 +175,10 @@ cli
             console.log(`[INFO] Download skipped for library ${name}`);
           }
 
+          
           // I literally cant see this area!
+
+
         } else {
           let newData = fs.readFileSync(
             `${process.cwd()}/libs/${file}`,
@@ -169,6 +214,18 @@ cli
           let more_as;
           if (more) {
             more_as = readConfig(newData, "more_as");
+            if(more_as.some((a) => a.includes("/"))) {
+              more_as.forEach((a, i) => {
+                let temp = a.split("/");
+                a = temp.pop();
+                let dir = temp.join("/");
+                let tempdir = `${process.cwd()}/assets/libs/${name}/${dir}`;
+                if (!fs.existsSync(tempdir)) {
+                  console.log(`[INFO] Creating directory ${dir} for ${a}`);
+                  fs.mkdirSync(tempdir, { recursive: true });
+                }
+              });
+            }
           }
           if (more && more?.length != more_as?.length) {
             console.log(
@@ -189,6 +246,21 @@ cli
                 "blue"
               )} -> ${color(`/${name}/` + _as, "yellow")}]`
             );
+            //read same file
+            let data = fs.readFileSync(dest + _as, "utf8");
+            data = data.split("\n");
+            //find the line that starts with "//# sourceMappingURL"
+            let sourceMapLine = data.findIndex((line) =>
+              line.startsWith("//# sourceMappingURL")
+            );
+            //remove that line if exists
+            if (sourceMapLine != -1) {
+              data.splice(sourceMapLine, 1);
+              fs.writeFileSync(dest + _as, data.join("\n"));
+            }
+            //join data and write it to the file
+            data = data.join("\n");
+            fs.writeFileSync(dest + _as, data);
           });
           if (more) {
             more.forEach((m, i) => {
@@ -202,6 +274,21 @@ cli
                     "yellow"
                   )}]`
                 );
+                //read same file
+              let data = fs.readFileSync(dest + _as, "utf8");
+              data = data.split("\n");
+              //find the line that starts with "//# sourceMappingURL"
+              let sourceMapLine = data.findIndex((line) =>
+                line.startsWith("//# sourceMappingURL")
+              );
+              //remove that line if exists
+              if (sourceMapLine != -1) {
+                data.splice(sourceMapLine, 1);
+                fs.writeFileSync(dest + _as, data.join("\n"));
+              }
+              //join data and write it to the file
+              data = data.join("\n");
+              fs.writeFileSync(dest + _as, data);
               });
             });
           }

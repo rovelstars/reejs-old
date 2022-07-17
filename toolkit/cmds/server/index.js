@@ -8,7 +8,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = createApp();
-let import_maps = fs.readFileSync(`${process.cwd()}/import-maps.json`, "utf8");
+let import_maps = "{}";
+let script = "";
+try{
+import_maps = fs.readFileSync(`${process.cwd()}/import-maps.json`, "utf8");
+script = fs.readFileSync(`${process.cwd()}/index.js`, "utf8");
+} catch(e){}
 let mimes = fs.readFileSync(`${__dirname}/mime.json`, "utf8");
 mimes = JSON.parse(mimes);
 
@@ -29,15 +34,14 @@ function RenderHTML(req,res,next){
             ${import_maps}
         </script>
     </head>
-    <body class="min-h-screen bg-purple-800">
-    <div id="app"></div>
-    <script src="https://cdn.skypack.dev/-/twind@v0.16.17-je93RqjPGfVdZEy8P06H/dist=es2019,mode=imports/optimized/twind/shim.js" type="module"></script>
-    <script type="module">import("shell").then(()=>{ree.init({ app: "app", env: "dev", render: "react" })});</script>
+    <body>
+    ${script?`<script type="module">\n${script}\n</script>`:""}
     </body>
     </html>`);
     }
     else next();
 }
+//<script src="https://cdn.skypack.dev/-/twind@v0.16.17-je93RqjPGfVdZEy8P06H/dist=es2019,mode=imports/optimized/twind/shim.js" type="module"></script>
 
 function ServeStatic(req, res,next){
     const file = process.cwd() + req.url.split("?")[0];
@@ -49,6 +53,22 @@ function ServeStatic(req, res,next){
         return send(res, fs.readFileSync(file));
     }
     else next();
+}
+
+function Proxy(req,res,next){
+    //proxy requests starting with /-/
+    if(req.url.startsWith("/-/")){
+        // proxy from https://cdn.skypack.dev/
+        const url = req.url.replace("/-/","https://cdn.skypack.dev/-/");
+        console.log("[PROXY]",url);
+        const proxy = createServer((proxy_req,proxy_res)=>{
+            //pipe response to client
+            proxy_res.pipe(res);
+        });
+    }
+    else{
+        next();
+    }
 }
 
 createServer(app).listen(parseInt("3000"), () => {

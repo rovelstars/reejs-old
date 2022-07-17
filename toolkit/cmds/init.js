@@ -21,7 +21,7 @@ cli.command("init")
                 //delete the .git folder
                 fs.rmSync(`.git`, { recursive: true, force: true });
                     console.log(color(`Project ${color(opts.name, "", "greenBg")} created!`, "green", "greenBg"));
-                    console.log("To get started, run the following ", "`" + color(`cd ${opts.name} && reejs serve`, "", "blackBrightBg") + "`", " command");
+                    console.log("To get started, run the following ", "`" + color(`cd ${opts.name} && reejs i && reejs link && reejs map && reejs serve`, "", "blackBrightBg") + "`", " commands");
             });
         });
     })
