@@ -1,3 +1,7 @@
-toolkit/create-reejs-app
-toolkit/reejs-app
-reetoolkit/example/*
+create-reejs-app
+reejs-app
+node_modules
+assets
+import-maps.json
+versions
+storage

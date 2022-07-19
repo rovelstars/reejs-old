@@ -18,7 +18,10 @@ if (os == "win32") {
   home = home.replace(/\\/g, "/");
 }
 let dir = `${home}/.reejs`;
-
+//check if the .reejs/storage exists else create it
+if (!fs.existsSync(`${dir}/storage`)) {
+  fs.mkdirSync(`${dir}/storage`);
+}
 function logger(msg, lvl = "DEBUG") {
   lvl = lvl.toUpperCase();
   console.log(`[${lvl}] ${msg}`);
@@ -63,7 +66,10 @@ function downloadFile(url, dest, cb) {
     });
   });
 }
-
+if(!fs.existsSync(`${dir}/storage/features`)){
+  fs.writeFileSync(`${dir}/storage/features`, "", "utf8");
+}
+let featuresList = fs.readFileSync(`${dir}/storage/features`, "utf8").split("\n").filter((e) => {return e!=""});
 const cli = sade("reejs");
 cli.version(pkg.version);
 

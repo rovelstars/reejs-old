@@ -53,11 +53,11 @@ if (!fs.existsSync(dir)) {
         console.log("[INFO] Git clone successful. Installing libraries...");
         if (os != "win32") {
           console.log("[INFO] Unix system detected. Making file executable.");
-          exec("chmod a+x ./index.js", { cwd: dir + "/toolkit/" });
+          exec("chmod a+x ./index.js", { cwd: dir + "/" });
         }
         exec(
           "npm link .",
-          { cwd: dir + "/toolkit/" },
+          { cwd: dir + "/" },
           (err, stdout, stderr) => {
             if (err) {
               console.log(
@@ -67,10 +67,10 @@ if (!fs.existsSync(dir)) {
               process.exit(1);
             }
             //make failsafe.js executable with fs
-            fs.chmodSync(`${dir}/toolkit/failsafe.js`, "755");
+            fs.chmodSync(`${dir}/failsafe.js`, "755");
             exec(
               "node ./failsafe.js",
-              { cwd: dir + "/toolkit/" },
+              { cwd: dir + "/" },
               (err, stdout, stderr) => {
                 if (err) {
                   console.log(
