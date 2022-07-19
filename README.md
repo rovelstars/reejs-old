@@ -17,7 +17,7 @@ Invoke-RestMethod https://pastebin.com/raw/PdLBGtkb | node
 
 Linux/Mac:
 ```bash
-curl -s https://pastebin.com/raw/PdLBGtkb | bash
+curl -s https://pastebin.com/raw/PdLBGtkb | node
 ```
 
 Isn't this awesome? Its definitely better than npm install!
