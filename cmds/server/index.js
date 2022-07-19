@@ -6,7 +6,8 @@ import path from 'path';
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+const ROUTES = import.meta.globEager('/src/pages/**/[a-z[]*.{js,ts}')
+console.log(ROUTES);
 const app = createApp();
 let import_maps = "{}";
 let script = "";

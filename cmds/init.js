@@ -2,6 +2,7 @@ cli.command("init [url] [name]")
     .describe(`Initialize a new project`)
     .action((url, name) => {
         if (!url || url == ".") url = "https://github.com/ree-js/create-reeact-app";
+        if(!url.startsWith("https://")) name = url; url = "https://github.com/ree-js/create-reeact-app";
         if(!name) name = "reejs-app";
         //check if git is installed
         exec("git --version", (err, stdout, stderr) => {

@@ -7,7 +7,7 @@ cli
         "The features currently enabled are:",
         featuresList.join(", ") || color("None", "red")
       );
-      let allowedFeatures = ["ssr", "rex"];
+      let allowedFeatures = [];
       console.log(
         "The features you can currently enable:",
         allowedFeatures
@@ -20,14 +20,16 @@ cli
       featuresList.push(name);
       fs.writeFileSync(`${dir}/storage/features`,featuresList.join("\n"));
         if (fs.existsSync(`${dir}/features/installer/${name}.js`)) {
-            import(`${dir}/features/installer/${name}.js`);
+            let code = fs.readFileSync(`${dir}/features/installer/${name}.js`);
+            eval(code);
         }
       console.log(`Feature ${name} added`);
     } else if (action === "remove") {
         featuresList = featuresList.filter(e => e !== name);
         fs.writeFileSync(`${dir}/storage/features`,featuresList.join("\n"));
         if (fs.existsSync(`${dir}/features/uninstaller/${name}.js`)) {
-            import(`${dir}/features/uninstaller/${name}.js`);
+            let code = fs.readFileSync(`${dir}/features/uninstaller/${name}.js`);
+            eval(code);
         }
         console.log(`Feature ${name} removed`);
     } else {
