@@ -6,11 +6,12 @@ import path from 'path';
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const ROUTES = import.meta.globEager('/src/pages/**/[a-z[]*.{js,ts}')
-console.log(ROUTES);
+import {ImportPages } from "../utils/importGlob";
+let routes = ImportPages();
 const app = createApp();
 let import_maps = "{}";
 let script = "";
+let reecfg = fs.readFileSync(path.join(process.cwd(), ".reecfg"), "utf8").split("\n");
 try{
 import_maps = fs.readFileSync(`${process.cwd()}/import-maps.json`, "utf8");
 script = fs.readFileSync(`${process.cwd()}/index.js`, "utf8");
